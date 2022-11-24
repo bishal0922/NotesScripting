@@ -1,23 +1,41 @@
 import os
-from datetime import date
-#original directory default is /users/bishal 
-#now we are in: /Users/bishal/Documents/bishal/notes
+import datetoday
 
 #this part may need some changes depending upon where this .py file is located
-print(os.getcwd())
+# print(os.getcwd()) -> will get the current working directory where this file is located
 os.chdir('../../../bishal/notes')
-
-#prints the current working directory
+# print(os.getcwd()) -> will now go to the notes directory
 print(os.getcwd())
+
+#read class_list.txt and store it in a list
+if os.path.exists('class_list.txt'):
+    with open('class_list.txt') as f:
+        class_list = f.readlines()
+        # strip the newline character '\n' from each line
+        class_list = [x.strip() for x in class_list]
+
+
+folder_name = datetoday.get_date_file_name()
 
 #if there isn't the directory we want then 
-dir = os.path.join('today1')
+dir = os.path.join(folder_name)
+
 if not os.path.isdir(dir):
-    print("doesn't exist")
+    os.mkdir(dir)
+    os.chdir(dir)
+
     #gets Nov24
-    fstr = date.today().strftime('%b%d')
-    
-    print(fstr)
+    month_day = datetoday.get_date()
+
+    #read class_list.txt and append it to month_day
+    for my_class in class_list:
+        new_file_name = my_class+(month_day)+'.md'
+        fp = open(new_file_name, 'w')
+        
+        #write the header
+        fp.write('# '+my_class+'\n'+
+            '### '+ datetoday.get_full_date() + '\n')    
+
 else:
     print("The directory already exists")
 
