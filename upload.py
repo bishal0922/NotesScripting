@@ -1,8 +1,8 @@
 import os
 import datetoday
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
+# import firebase_admin
+# from firebase_admin import credentials
+# from firebase_admin import firestore
 
 # command is : python3 -m markdown COMS2302_Nov24.md > COMS2302_Nov24.html
 
@@ -18,7 +18,8 @@ for filename in os.listdir(directory):
     if os.path.isfile(filename):
         file = filename
         #turning the markdown file into html
-        os.system('python3 -m markdown ' + file + ' > ' + file[:-2] + 'html')
+        os.system('mdpdf '+ file)
+        #os.system('python3 -m markdown ' + file + ' > ' + file[:-2] + 'html')
 
 
 # Use a service account.
@@ -29,11 +30,11 @@ for filename in os.listdir(directory):
 os.chdir('../../../projects/NotesScripting/NotesScripting')
 
 
-cred = credentials.Certificate('mynotes-cede7-firebase-adminsdk-nxksw-f19f4e0b57.json')
+# cred = credentials.Certificate('mynotes-cede7-firebase-adminsdk-nxksw-f19f4e0b57.json')
 
-app = firebase_admin.initialize_app(cred)
+# app = firebase_admin.initialize_app(cred)
 
-db = firestore.client()
+# db = firestore.client()
 # now we have all the files in html format and we can upload them to the amazon s3 server
 
 # add a file to the database
