@@ -1,50 +1,56 @@
+#!/usr/bin/python3
+
+"""
+This file is responsible for creating multiple .md files within a specificed directory
+The .md files will be based on a dict/file and will contain headers for each
+"""
+
 import os
-import datetoday
+import date_formatter
+import logging
 
-#this part may need some changes depending upon where this .py file is located
-# print(os.getcwd()) -> will get the current working directory where this file is located
+logger = logging.getLogger(__name__)  
+
+# changing our os working directory to our destination notes folder
 os.chdir('../../../bishal/notes')
-# print(os.getcwd()) -> will now go to the notes directory
-print(os.getcwd())
 
-# #read class_list.txt and store it in a list
-# if os.path.exists('class_list.txt'):
-#     with open('class_list.txt') as f:
-#         class_list = f.readlines()
-#         # strip the newline character '\n' from each line
-#         class_list = [x.strip() for x in class_list]
+# print(os.getcwd()) -> will now go to the notes directory
+logging.debug("The directory where we have this notes folder is: \n\t" + os.getcwd())
 
 # we should rather create file as a map
 class_list = {
     'CSE3315': 'Theory of Computation',
     'COMS2302': 'Business Communication',
     'CSE3310': 'Intro to Software Engineering',
+    'CSE3302': 'Operating System',
+    'CSE3320': 'Programming Languages',
+    'CSE3380': 'Linear Algebra'
 }
 
-
-folder_name = datetoday.get_date_file_name()
+#folder_name is the formatted date ex. ThuNov25
+folder_name_formmated = date_formatter.get_date_file_name()
 
 #if there isn't the directory we want then 
-dir = os.path.join(folder_name)
+#our directory path
+dir = os.path.join(folder_name_formmated)
+logging.debug("directory we create from line 25" + dir)
+
 
 if not os.path.isdir(dir):
+    #if the directory doesn't exist then we make and enter into it
     os.mkdir(dir)
     os.chdir(dir)
 
-    #gets Nov24
-    month_day = datetoday.get_date()
+    #gets Nov24 as a string
+    month_day_formatted = date_formatter.get_date()
 
-    #read class_list.txt and append it to month_day
+    #read class_list.txt (or a dict) and append it to month_day_formatted
     for my_class in class_list:
-        new_file_name = my_class + '_' + (month_day) + '.md'
+        new_file_name = my_class + '_' + (month_day_formatted) + '.md'
         fp = open(new_file_name, 'w')
         
         #write the header
         fp.write('# '+ my_class + ' - ' +class_list.get(my_class) +'\n'+
-            '### '+ datetoday.get_full_date() + '\n')    
-
+            '### '+ date_formatter.get_full_date() + '\n')    
 else:
     print("The directory already exists")
-
-
-#if the directory doesn't exits then create the directory called notes uploader
