@@ -1,8 +1,7 @@
 #!usr/bin/python3
 
 """
-This file is responsible for the implementation of boto3
-
+This file is responsible for the implementation of boto3 and to upload the contents for all the html files into the s3 bucket.
 """
 
 import os
