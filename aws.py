@@ -1,7 +1,16 @@
+#!usr/bin/python3
+
+"""
+This file is responsible for the implementation of boto3
+
+"""
+
 import os
-import boto3  # pip install boto3
-import datetoday
-# Let's use Amazon S3 - s3 access object
+import boto3
+import date_formatter
+from bs4 import BeautifulSoup
+
+#s3 accessing object using boto
 s3 = boto3.client("s3")
 BUCKET_NAME = "mygeneratedhtmlnotes"
 
@@ -9,23 +18,28 @@ BUCKET_NAME = "mygeneratedhtmlnotes"
 print("Root Directory of this project: \n\t" + os.getcwd())
 #s3.meta.client.upload_file('/tmp/hello.txt', 'mybucket', 'hello.txt')
 
+#now we change directory to out notes folder
 os.chdir('../../../bishal/notes')
 
-dir = datetoday.get_date_file_name()
+# ex.ThuNov25
+directory_formatted = date_formatter.get_date_file_name()
+directory = os.chdir(directory_formatted)
 
-
-directory = os.chdir(dir)
 print(os.getcwd())
-# iterate over files in
-# that directory
+
+# iterate over files in that directory
 for filename in os.listdir(directory):
+    #if its a file and it ends with .html (type is html)
     if os.path.isfile(filename) and filename.endswith('.html'):
-        print(filename)
-        #s3.upload_file(filename, BUCKET_NAME, dir+'/'+filename)
-        print("File" + filename +  "uploaded to S3")
+
+        #reading the file with beautiful soup
+        HTMLFile = open(filename, "r")
+        index = HTMLFile.read()
+
+        #our contents of the html file are being passed on as Body
+        s3.put_object(Bucket=BUCKET_NAME, Key=filename, Body=index,  ContentType='text/html')
+
+        print("File (" + filename +  ") uploaded to S3")
 
 
-
-
-#s3.upload_file('testfile.txt', BUCKET_NAME, 'TESTING/tesstfile.txt')
 
