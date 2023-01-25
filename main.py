@@ -19,13 +19,11 @@ logging.debug("The directory where we have this notes folder is: \n\t" + os.getc
 
 # we should rather create file as a map
 class_list = {
-    'CSE3315': 'Theory of Computation',
-    'COMS2302': 'Business Communication',
-    'CSE3310': 'Intro to Software Engineering',
-    'CSE3302': 'Operating System',
-    'CSE3320': 'Programming Languages',
-    'CSE3380': 'Linear Algebra'
+    "CSE 3380": "Linear Algebra",
+    "CSE 3302": "Programming Languages",
+    "CSE 3320": "Operating Systems",
 }
+
 
 #folder_name is the formatted date ex. ThuNov25
 folder_name_formmated = date_formatter.get_date_file_name()
