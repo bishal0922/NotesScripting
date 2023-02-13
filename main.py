@@ -19,9 +19,9 @@ logging.debug("The directory where we have this notes folder is: \n\t" + os.getc
 
 # we should rather create file as a map
 class_list = {
-    "CSE 3380": "Linear Algebra",
-    "CSE 3302": "Programming Languages",
-    "CSE 3320": "Operating Systems",
+    "CSE3380": "Linear Algebra",
+    "CSE3302": "Programming Languages",
+    "CSE3320": "Operating Systems",
 }
 
 
