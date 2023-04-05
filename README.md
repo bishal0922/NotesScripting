@@ -29,5 +29,6 @@ This file is responsible for the implementation of boto3 and to upload the conte
 - files will be converted to pdf or html
 - after the last class the files will be uploaded to my s3 bucket using boto3
 
-I'm currently working on s3 to find a way to import pages to my personal website
+~~I'm currently working on s3 to find a way to import pages to my personal website~~
+Now currently working on developing a UI where I can view my notes preferably a hosted react app
    
